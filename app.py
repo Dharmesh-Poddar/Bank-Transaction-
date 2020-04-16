@@ -77,3 +77,14 @@ def debtWithUser(username):
 		})[0]["Debt"]
     
     return debt 
+
+def generateReturnDictionary(status,msg)
+    retJson={
+        "status": status,
+        "msg": msg
+
+    }
+    return retJson
+
+
+def verifyCredentials(username,password)
