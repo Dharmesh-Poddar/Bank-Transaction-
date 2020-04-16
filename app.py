@@ -64,3 +64,9 @@ def verifyPw(username, password):
 	else:
 		return False 
 
+def cashWithUser(username):
+	cash = users.find({
+		"Username":username
+	})[0]["Own"]
+     
+    return cash 
