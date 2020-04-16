@@ -78,7 +78,7 @@ def debtWithUser(username):
     
     return debt 
 
-def generateReturnDictionary(status,msg)
+def generateReturnDictionary(status,msg):
     retJson={
         "status": status,
         "msg": msg
@@ -87,4 +87,16 @@ def generateReturnDictionary(status,msg)
     return retJson
 
 
-def verifyCredentials(username,password)
+def verifyCredentials(username,password):
+    if not UserExist(username):
+        return generateReturnDictionary(301,"Invalid Username"),True 
+
+
+    correct_pw =verifyPw(username, password)
+
+    if not correct_pw:
+    	return generateReturnDictionary(302,"Incorrect password"),True 
+
+    return None, False 
+
+
