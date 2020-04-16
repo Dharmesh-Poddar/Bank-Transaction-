@@ -38,8 +38,8 @@ class Register(Resource):
 		users.insert({
 			"Username":username,
 			"password":hashed_pw,
-			"own": 0,
-			"debt": 0
+			"Own": 0,
+			"Debt": 0
 
 			})
 
@@ -69,4 +69,11 @@ def cashWithUser(username):
 		"Username":username
 	})[0]["Own"]
      
-    return cash 
+    return cash  
+
+def debtWithUser(username):
+	debt= users.find({
+		"Username":username 
+		})[0]["Debt"]
+    
+    return debt 
