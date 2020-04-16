@@ -17,4 +17,19 @@ def UserExist(username):
 	else:
 		return True 
 
-		
+
+class Register(Resource):
+	def post(self):
+		postedData=request.get_json()
+
+		username= postedData["username"]
+		password= postedData["password"]
+
+
+		if UserExist(username):
+			return retJson{
+			    status: '301',
+			    "msg": "username already exist"
+			}
+			return jsonify(retJson)
+			
