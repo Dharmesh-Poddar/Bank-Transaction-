@@ -99,4 +99,46 @@ def verifyCredentials(username,password):
 
     return None, False 
 
+def updateAccount(username,balance):
+	users.update({
+		"Username": username 
 
+	},{
+	    "$set":{
+	        "Own": balance  
+
+	    }
+
+		})
+def updateDebt(username, balance):
+	users.update({
+		"Username": username,
+
+	},{
+        "$set":{
+            "Debt":balance
+        }
+	})
+ 
+class Add(Resource):
+	def post(self):
+		postedData= request.get_json()
+
+		username= postedData["username"]
+		password = postedData["password"]
+		money = postedData["amount"]
+
+		retJson, error =verifyCredentials(username,pasword)
+
+		if error:
+			return jsonify(retJson)
+		if money<=0:
+			return jsonify(generateReturnDictionary(304,"The money amount entered must be greater than 0"))
+
+		cash = cashWithUser(username)
+		money-=1
+		bank_cash= cashWithUser("BANK")
+		updateAccount("BANK",bank_cash+1)
+		updateAccount(username, cash+money)
+
+        return jsonify(generateReturnDictionary(200,"Amount added successfully"))
