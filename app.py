@@ -27,29 +27,29 @@ class Register(Resource):
 
 
 		if UserExist(username):
-			return retJson{
-			    status: '301',
+		    retJson={
+
+			    "status": 301 ,
 			    "msg": "username already exist"
-			}
-			return jsonify(retJson)
+		    }
+        return jsonify(retJson)
 
-		hashed_pw= bcrypt.hashpw(password.encode('utf8'),bcrypt.gensalt())
+        hashed_pw= bcrypt.hashpw(password.encode('utf8'),bcrypt.gensalt())
 
-		users.insert({
+        users.insert({
 			"Username":username,
 			"password":hashed_pw,
 			"Own": 0,
 			"Debt": 0
 
 			})
-
-		    retJson={
+            
+        retJson={
 		        "status": 200,
 		        "msg": "You have registered successfully"
 
 		    }
-
-		    return jsonify(retJson)
+        return jsonify(retJson)
 
 def verifyPw(username, password):
 	if not UserExist(username):
@@ -247,5 +247,5 @@ api.add_resource(PayLoan,'/payloan')
 
 if __name__=='__main__':
 	app.run(debug="True")
-	
+
 
