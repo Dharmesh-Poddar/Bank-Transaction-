@@ -158,4 +158,20 @@ class Transfer(Resource):
 
         cash = cashWithUser(username)
         if cash<=0:
-            return jsonify(generateReturnDictionary(304,"you are out of money "))        
+            return jsonify(generateReturnDictionary(304,"you are out of money "))
+
+        if not UserExist(to):
+        	return jsonify(generateReturnDictionary(301,"reciever username do not exist"))
+
+        cash_from = cashWithUser(username)
+        cash_to =cashWithUser(to)
+        bank_cash= cashWithUser("BANK")
+
+        updateAccount("BANK",bank_cash+1)
+        updateAccount(to,cash_to+money-1)
+        updateAccount(username, cash_from-money)
+        
+        return jsonify(generateReturnDictionary(200,"Amount transferred successfully"))
+
+
+
