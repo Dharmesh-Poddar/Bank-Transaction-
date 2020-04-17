@@ -142,3 +142,20 @@ class Add(Resource):
 		updateAccount(username, cash+money)
 
         return jsonify(generateReturnDictionary(200,"Amount added successfully"))
+
+class Transfer(Resource):
+    def post(self):
+        postedData= request.get_json()
+        username= postedData["username"]
+        password = postedData["password"]
+        to = postedData["to"]
+        money= postedData["amount"]
+
+        retJson, error =verifyCredentials(username, password)
+
+        if error:
+            return jsonify(retJson)
+
+        cash = cashWithUser(username)
+        if cash<=0:
+            return jsonify(generateReturnDictionary(304,"you are out of money "))        
